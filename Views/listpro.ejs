@@ -62,30 +62,7 @@
                 />
                <a href="http://localhost:3000/listuser"> <span class="ms-1 d-none d-sm-inline">QUẢN LÝ USER</span></a></a>
             </li> 
-            <li>
-              <a
-                href="#submenu3"
-                data-bs-toggle="collapse"
-                class="nav-link px-0 align-middle"
-              >
-             <img
-                  src="https://firebasestorage.googleapis.com/v0/b/thuvienpoly.appspot.com/o/file-invoice%20(1)%201.png?alt=media&token=b3f068c8-88fd-41fe-9907-cc4130c58c61"
-                  alt="fail"
-                /> 
-                <span class="ms-1 d-none d-sm-inline">PHIẾU MUA</span>
-              </a>
-              <ul
-                class="collapse nav flex-column ms-1"
-                id="submenu3"
-                data-bs-parent="#menu"
-              >
-                <li class="w-100">
-                  <a href="#" class="nav-link px-0">
-                    <span class="d-none d-sm-inline">Danh Sách Phiếu Mua</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
+           
             <li>
               <a
                 href="#submenu4"
@@ -122,8 +99,8 @@
       <div class="col py-3">
         <body>
           <div style="margin: 20px;">
-            <h2>Danh sách sản phẩm</h2>
-    <table class="table">
+            <h2><h1 style="text-align: center; " class="text-success">Danh sách sản phẩm</h1></h2>
+    <table class="table table-success table-striped-columns">
       <thead>
         <tr>
           <th scope="col">Tên sản phẩm</th>
@@ -145,7 +122,12 @@
         <% }); %>
       </tbody>
     </table>
-    <button><a href="http://localhost:3000/product/add">Add Sản Phẩm</a></button>
+    <button class="btn btn-outline-success" style="display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    margin: 10px auto;"><a href="http://localhost:3000/product/add" >Add Sản Phẩm</a></button>
           </div>
         </body>
       </div>

@@ -62,30 +62,7 @@
                 />
                <a href="http://localhost:3000/listuser"> <span class="ms-1 d-none d-sm-inline">QUẢN LÝ USER</span></a></a>
             </li> 
-            <li>
-              <a
-                href="#submenu3"
-                data-bs-toggle="collapse"
-                class="nav-link px-0 align-middle"
-              >
-             <img
-                  src="https://firebasestorage.googleapis.com/v0/b/thuvienpoly.appspot.com/o/file-invoice%20(1)%201.png?alt=media&token=b3f068c8-88fd-41fe-9907-cc4130c58c61"
-                  alt="fail"
-                /> 
-                <span class="ms-1 d-none d-sm-inline">PHIẾU MUA</span>
-              </a>
-              <ul
-                class="collapse nav flex-column ms-1"
-                id="submenu3"
-                data-bs-parent="#menu"
-              >
-                <li class="w-100">
-                  <a href="#" class="nav-link px-0">
-                    <span class="d-none d-sm-inline">Danh Sách Phiếu Mua</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
+            
             <li>
               <a
                 href="#submenu4"
@@ -119,22 +96,37 @@
 
         </div>
       </div>
-      <div class="col py-3">
+      <div class="container mt-3">
         <body>
-            <h2>Thêm sản phẩm</h2>
+            <h2><h1 style="text-align: center; margin-top: 120;" class="text-success">Thêm sản phẩm</h1></h2>
             <form method="post" action="">
-                <div style="margin: 20px;">
-                    <input type="text" placeholder="Tên sản phẩm" name="tensp"/>
-                    <br/>
-                    <input type="number" placeholder="Giá sản phẩm" name="giasp"/>
-                    <br/>
-                    <input type="text" placeholder="Ảnh" name="img"/>
-                    <br/>
-                    <input type="text" placeholder="Mô tả sản phẩm" name="motasp"/>
-                    <br/>
-                    <input type="number" placeholder="Số lượng" name="soluong"/>
-                    <br/>
-                    <button type="submit">Add Sản Phẩm</button>
+            <form>
+                <!-- <div style="margin: 20px;"> -->
+                  <div class="input-group mb-3">
+                    <input type="text" placeholder="Tên sản phẩm" name="tensp" class="form-control form-control-lg bg-light"/>
+                  </div>
+                
+                  <div class="input-group mb-3">
+                    <input type="number" placeholder="Giá sản phẩm" name="giasp" class="form-control form-control-lg bg-light "/>
+                  
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="text" placeholder="Ảnh" name="img" class="form-control form-control-lg bg-light "/>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="text" placeholder="Mô tả sản phẩm" name="motasp" class="form-control form-control-lg bg-light "/>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="number" placeholder="Số lượng" name="soluong" class="form-control form-control-lg bg-light "/>
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-success" style="display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    text-align: center;
+                    padding: 10px;
+                    margin: 10px auto;">Thêm Sản Phẩm</button>
+                  </form>
                   </div>
             </form> 
          
