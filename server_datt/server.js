@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-
+const { listeners } = require("node-notifier");
+const bodyParser = require('body-parser');
 const app = express();
 app.use(express.json());
 mongoose.connect(
@@ -93,8 +94,8 @@ mongoose.connect(
     soluongmua: String,
     pttt:String,
     tennguoimua:String,
-  tongtien:String,
-  phanhoi:String
+    tongtien:String,
+    phanhoi:String
   })
   
   const lichSu= mongoose.model("LichSus", lichSuSchema)
@@ -392,14 +393,114 @@ mongoose.connect(
       res.status(201).json({message:"thêm trạng thái thành công"})
     })
   })
-  
-  
-  
-  
-  
-  
+  app.set('view engine', 'ejs');
+  app.set('views', '../Views');
+  app.get("/listuser",async(req,res)=>{
+    var list=await User.find();
+    console.log(list)
+    res.render('listuser',{list:list})
+  })
+  app.get("/listpro",async(req,res)=>{
+    var listPro=await SanPham.find();
+    console.log(listPro);
+    res.render('listpro',{listPro:listPro})
+  })
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.get("/login",(req,res)=>{
+    if(req.body.username=="Admin"&&req.body.password=="123"){
+      console.log(req.body.username);
+      res.redirect('/listuser')
+    }
+    res.render('login')
+  })
+  app.post("/login",(req,res)=>{
+    let msg="";
+    if(req.body.username=="Admin"&&req.body.password=="123"){
+      msg="Đăng nhập thành công"
+      console.log(req.body.username);
+      res.redirect('/listuser')
+    } else{
+      msg="Thất bại"
+    }
+    res.render('login')
+  })
+  app.get("/product/chitiet/:idsp",async(req,res)=>{
+    let objSp=await SanPham.findById(req.params.idsp);
+    res.render('chitietsp',{objSp:objSp})
+  })
+  app.get("/product/update/:idsp",async(req,res)=>{
+    let objSp=await SanPham.findById(req.params.idsp);
+    if(req.method=="POST"){
+      let objPr=new SanPham();
+      objPr.tensp=req.body.tensp;
+      objPr.giasp=req.body.giasp;
+      objPr.img=req.body.img;
+      objPr.motasp=req.body.motasp;
+      objPr.soluong=req.body.soluong;
+      try{
+          objPr.save();
+          console.log(objPr);
+      } catch(error){
+        msg="Lỗi"+error.message;
+      }
+    }
+    res.render('updatepro',{objSp:objSp})
+  })
+  app.post("/product/update/:idsp",async(req,res)=>{
+    let objSp=await SanPham.findById(req.params.idsp);
+    if(req.method=="POST"){
+      let objPr=new SanPham();
+      objPr.tensp=req.body.tensp;
+      objPr.giasp=req.body.giasp;
+      objPr.img=req.body.img;
+      objPr.motasp=req.body.motasp;
+      objPr.soluong=req.body.soluong;
+      try{
+          objPr.save();
+          console.log(objPr);
+      } catch(error){
+        msg="Lỗi"+error.message;
+      }
+    }
+    res.render('updatepro',{objSp:objSp})
+  })
+  app.get("/product/add",(req,res)=>{
+    let msg="";
+    if(req.method=="POST"){
+      let objPr=new SanPham();
+      objPr.tensp=req.body.tensp;
+      objPr.giasp=req.body.giasp;
+      objPr.img=req.body.img;
+      objPr.motasp=req.body.motasp;
+      objPr.soluong=req.body.soluong;
+      try{
+          objPr.save();
+          console.log(objPr);
+      } catch(error){
+        msg="Lỗi"+error.message;
+      }
+    }
+    res.render('addpro');
+  })
+  app.post("/product/add",(req,res)=>{
+    let msg="";
+    if(req.method=="POST"){
+      let objPr=new SanPham();
+      objPr.tensp=req.body.tensp;
+      objPr.giasp=req.body.giasp;
+      objPr.img=req.body.img;
+      objPr.motasp=req.body.motasp;
+      objPr.soluong=req.body.soluong;
+      try{
+          SanPham.findByIdAndUpdate({_id:req.params.idsp},objPr);
+      } catch(error){
+        msg="Lỗi"+error.message;
+      }
+    }
+    res.render('addpro',);
+  })
   //khởi chạy server
-  const port = 9996;
+  const port = 3000;
   app.listen(port, () => {
     console.log(`server đang lắng nghe tại cổng ${port}`);
   });
