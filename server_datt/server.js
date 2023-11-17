@@ -95,7 +95,8 @@ mongoose.connect(
     pttt:String,
     tennguoimua:String,
     tongtien:String,
-    phanhoi:String
+    phanhoi:String,
+    date: { type: Date, default: Date.now }
   })
   
   const lichSu= mongoose.model("LichSus", lichSuSchema)
@@ -406,14 +407,14 @@ mongoose.connect(
     res.render('listpro',{listPro:listPro})
   })
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.get("/login",(req,res)=>{
+  app.get("/",(req,res)=>{
     if(req.body.username=="Admin"&&req.body.password=="123"){
       console.log(req.body.username);
       res.redirect('/listuser')
     }
     res.render('login')
   })
-  app.post("/login",(req,res)=>{
+  app.post("/",(req,res)=>{
     let msg="";
     if(req.body.username=="Admin"&&req.body.password=="123"){
       msg="Đăng nhập thành công"
@@ -499,6 +500,64 @@ mongoose.connect(
     }
     res.render('addpro',);
   })
+  const moment = require('moment');
+
+  app.post('/thongke', function(req, res) {
+    const startDate = moment(req.body.startDate).startOf('day');
+    const endDate = moment(req.body.endDate).endOf('day');
+  
+    lichSu.aggregate([
+      {
+        $match: {
+          date: {
+            $gte: startDate.toDate(),
+            $lte: endDate.toDate()
+          }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          totalTongTien: { $sum: { $toDouble: "$tongtien" } }
+        }
+      }
+    ]).then(function(result) {
+      res.render('thongke', { result: result });
+    }).catch(function(err) {
+      console.log(err);
+      res.render('error');
+    });
+  });
+  
+
+
+  app.get('/thongke', function(req, res) {
+    const startDate = moment(req.body.startDate).startOf('day');
+    const endDate = moment(req.body.endDate).endOf('day');
+  
+    lichSu.aggregate([
+      {
+        $match: {
+          date: {
+            $gte: startDate.toDate(),
+            $lte: endDate.toDate()
+          }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          totalTongTien: { $sum: { $toDouble: "$tongtien" } }
+        }
+      }
+    ]).then(function(result) {
+      res.render('thongke', { result: result });
+    }).catch(function(err) {
+      console.log(err);
+      res.render('error');
+    });
+  });
+
   //khởi chạy server
   const port = 3000;
   app.listen(port, () => {
